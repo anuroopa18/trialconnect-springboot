@@ -1,0 +1,13 @@
+webdev\TrialConnect\models\Patient.class
+webdev\TrialConnect\models\Address.class
+webdev\TrialConnect\models\Collaborator.class
+webdev\TrialConnect\models\Allergy.class
+webdev\TrialConnect\models\MedicalRecord.class
+webdev\TrialConnect\models\Doctor.class
+webdev\TrialConnect\models\Allergy$AllergyType.class
+webdev\TrialConnect\models\Sponsor.class
+webdev\TrialConnect\models\Vaccine.class
+webdev\TrialConnect\DemoApplication.class
+webdev\TrialConnect\models\Trial.class
+webdev\TrialConnect\models\Vitals.class
+webdev\TrialConnect\models\Admin.class
