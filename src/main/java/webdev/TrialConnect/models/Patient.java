@@ -17,6 +17,25 @@ public class Patient {
 
 	@OneToMany(mappedBy = "patient")
 	private List<MedicalRecord> medicalRecord;
+	
+	@OneToMany(mappedBy = "patient")
+	private List<Trial> trial;
+
+	public List<MedicalRecord> getMedicalRecord() {
+		return medicalRecord;
+	}
+
+	public void setMedicalRecord(List<MedicalRecord> medicalRecord) {
+		this.medicalRecord = medicalRecord;
+	}
+
+	public List<Trial> getTrial() {
+		return trial;
+	}
+
+	public void setTrial(List<Trial> trial) {
+		this.trial = trial;
+	}
 
 	@ManyToMany(mappedBy = "patients")
 	private List<Doctor> doctors;

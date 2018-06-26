@@ -41,11 +41,12 @@ public class PatientService {
 	
 	@PostMapping("/api/findPatientByCredentials/patient")
 	public Patient findPatientByCredentials(@RequestBody Patient patient) {
+		Patient pat = new Patient();
 		Optional<Patient> data = patientRepository.findUserByCredentials(patient.getUsername(),patient.getPassword());
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;
+		return pat;
 	}
 	
 	@GetMapping("/api/patient/{id}")

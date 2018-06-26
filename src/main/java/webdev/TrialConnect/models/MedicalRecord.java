@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -16,6 +17,8 @@ public class MedicalRecord {
 	private String problems;
 	private String medicine;
 	private String results;
+	
+	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date visits;
 	
 

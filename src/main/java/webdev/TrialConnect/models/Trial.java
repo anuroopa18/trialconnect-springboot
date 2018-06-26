@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Trial {
@@ -25,7 +28,17 @@ public class Trial {
 	private String exclusionCriteria;
 	private int contactInfo;
 	
+	@ManyToOne
+	@JsonIgnore
+	private Patient patient;
+	
 
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	public int getId() {
 		return id;
 	}

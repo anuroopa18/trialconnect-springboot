@@ -34,20 +34,22 @@ public class DoctorService {
 	
 	@PostMapping("/api/findDoctorByCredentials/doctor")
 	public Doctor findDoctorByCredentials(@RequestBody Doctor doctor) {
+		Doctor doc = new Doctor();
 		Optional<Doctor> data = doctorRepository.findUserByCredentials(doctor.getUsername(),doctor.getPassword());
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;
+		return doc;	
 	}
 	
 	@GetMapping("/api/doctor/{id}")
 	public Doctor findDoctorById(@PathVariable("id") int did) {
+		Doctor doc = new Doctor();
 		Optional<Doctor> data = doctorRepository.findById(did);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return doc;	
 	}
 	
 	@DeleteMapping("/api/doctor/{id}")
