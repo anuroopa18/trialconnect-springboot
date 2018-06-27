@@ -1,7 +1,6 @@
 package webdev.TrialConnect.services;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import webdev.TrialConnect.models.Doctor;
 import webdev.TrialConnect.repositories.DoctorRepository;
 
@@ -40,6 +38,16 @@ public class DoctorService {
 			return data.get();
 		}
 		return doc;	
+	}
+	
+	@GetMapping("/api/findDoctor/{username}")
+	public Doctor findDoctorByUsername(@PathVariable("username") String username) {
+		Doctor doc = new Doctor();
+		Optional<Doctor> data = doctorRepository.findUserByUsername(username);
+		if(data.isPresent()) {
+			return data.get();
+		}
+		return doc;
 	}
 	
 	@GetMapping("/api/doctor/{id}")
