@@ -41,6 +41,16 @@ public class AdminService {
 		return null;	
 	}
 	
+	@PostMapping("/api/findAdminByCredentials/admin")
+	public Admin findDoctorByCredentials(@RequestBody Admin admin) {
+		Admin ad = new Admin();
+		Optional<Admin> data = adminRepository.findUserByCredentials(admin.getUsername(),admin.getPassword());
+		if(data.isPresent()) {
+			return data.get();
+		}
+		return ad;	
+	}
+	
 	@DeleteMapping("/api/admin/{id}")
 	public void deleteAdmin(@PathVariable("id") int aid)
 	{

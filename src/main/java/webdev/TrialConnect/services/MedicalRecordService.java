@@ -34,11 +34,12 @@ public class MedicalRecordService {
 	
 	@GetMapping("/api/medicalrecord/{id}")
 	public MedicalRecord findMedicalRecordById(@PathVariable("id") int mid) {
+		MedicalRecord medicalRecord = new MedicalRecord();
 		Optional<MedicalRecord> data = medicalRepository.findById(mid);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return medicalRecord;	
 	}
 	
 	@DeleteMapping("/api/medicalrecord/{id}")
@@ -49,6 +50,7 @@ public class MedicalRecordService {
 	
 	@PutMapping("/api/medicalrecord/{id}")
 	public MedicalRecord updateMedicalRecord(@PathVariable("id") int did, @RequestBody MedicalRecord newMedicalRecord) {
+		MedicalRecord mr = new MedicalRecord();
 		Optional<MedicalRecord> data = medicalRepository.findById(did);
 		if(data.isPresent()) {
 			MedicalRecord medicalRecord = data.get();
@@ -85,7 +87,7 @@ public class MedicalRecordService {
 			
 			return newMedicalRecord;
 		}
-		return null;
+		return mr;
 	}
 	
 	

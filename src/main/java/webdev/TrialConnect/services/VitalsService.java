@@ -33,11 +33,12 @@ public class VitalsService {
 	
 	@GetMapping("/api/vitals/{id}")
 	public Vitals findVitalsById(@PathVariable("id") int vid) {
+		Vitals vt = new Vitals();
 		Optional<Vitals> data = vitalsRepository.findById(vid);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return vt;	
 	}
 	
 	@DeleteMapping("/api/vitals/{id}")
@@ -48,6 +49,7 @@ public class VitalsService {
 	
 	@PutMapping("/api/vitals/{id}")
 	public Vitals updateVitals(@PathVariable("id") int vid, @RequestBody Vitals newVitals ){
+		Vitals vt = new Vitals();
 		Optional<Vitals> data = vitalsRepository.findById(vid);
 		if(data.isPresent()) {
 			Vitals vitals = data.get();
@@ -66,7 +68,7 @@ public class VitalsService {
 		
 			return newVitals;
 		}
-		return null;
+		return vt;
 	}
 
 }

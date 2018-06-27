@@ -33,11 +33,12 @@ public class AllergyService {
 	
 	@GetMapping("/api/allergy/{id}")
 	public Allergy findAllergyById(@PathVariable("id") int aid) {
+		Allergy all = new Allergy();
 		Optional<Allergy> data = allergyRepository.findById(aid);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return all;	
 	}
 	
 	@DeleteMapping("/api/allergy/{id}")
@@ -48,6 +49,7 @@ public class AllergyService {
 	
 	@PutMapping("/api/allergy/{id}")
 	public Allergy updateAllergy(@PathVariable("id") int aid, @RequestBody Allergy newAllergy) {
+		Allergy all = new Allergy();
 		Optional<Allergy> data = allergyRepository.findById(aid);
 		if(data.isPresent()) {
 			Allergy allergy = data.get();
@@ -69,7 +71,7 @@ public class AllergyService {
 			
 			return newAllergy;
 		}
-		return null;
+		return all;
 	}
 	
 

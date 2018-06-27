@@ -68,6 +68,7 @@ public class DoctorService {
 	
 	@PutMapping("/api/doctor/{id}")
 	public Doctor updateDoctor(@PathVariable("id") int did, @RequestBody Doctor newDoctor) {
+		Doctor doc = new Doctor();
 		Optional<Doctor> data = doctorRepository.findById(did);
 		if(data.isPresent()) {
 			Doctor doctor = data.get();
@@ -99,7 +100,7 @@ public class DoctorService {
 			doctorRepository.save(doctor);
 			return doctor;
 		}
-		return null;
+		return doc;
 	}
 	
 }

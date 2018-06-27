@@ -52,11 +52,12 @@ public class PatientService {
 	
 	@GetMapping("/api/patient/{id}")
 	public Patient findPatientById(@PathVariable("id") int pid) {
+		Patient pat = new Patient();
 		Optional<Patient> data = patientRepository.findById(pid);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return pat;	
 	}
 	
 	@DeleteMapping("/api/patient/{id}")
@@ -67,6 +68,7 @@ public class PatientService {
 	
 	@PutMapping("/api/patient/{id}")
 	public Patient updatePatient(@PathVariable("id") int pid, @RequestBody Patient newPatient) {
+		Patient pat = new Patient();
 		Optional<Patient> data = patientRepository.findById(pid);
 		if(data.isPresent()) {
 			Patient patient = data.get();
@@ -96,7 +98,7 @@ public class PatientService {
 			patientRepository.save(patient);
 			return patient;
 		}
-		return null;
+		return pat;
 	}
 	
 

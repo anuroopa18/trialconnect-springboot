@@ -35,11 +35,12 @@ public class VaccineService {
 	
 	@GetMapping("/api/vaccine/{id}")
 	public Vaccine findVaccineById(@PathVariable("id") int vid) {
+		Vaccine vcc = new Vaccine();
 		Optional<Vaccine> data = vaccineRepository.findById(vid);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return vcc;	
 	}
 	
 	@DeleteMapping("/api/vaccine/{id}")
@@ -50,6 +51,7 @@ public class VaccineService {
 	
 	@PutMapping("/api/vaccine/{id}")
 	public Vaccine updateVaccine(@PathVariable("id") int vid, @RequestBody Vaccine newVaccine ){
+		Vaccine vcc = new Vaccine();
 		Optional<Vaccine> data = vaccineRepository.findById(vid);
 		if(data.isPresent()) {
 			Vaccine vaccine = data.get();
@@ -72,7 +74,7 @@ public class VaccineService {
 			
 			return newVaccine;
 		}
-		return null;
+		return vcc;
 	}
 	
 }

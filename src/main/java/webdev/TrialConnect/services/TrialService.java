@@ -34,11 +34,12 @@ public class TrialService {
 	
 	@GetMapping("/api/trial/{id}")
 	public Trial findTrialById(@PathVariable("id") int tid) {
+		Trial tr = new Trial();
 		Optional<Trial> data = trialRepository.findById(tid);
 		if(data.isPresent()) {
 			return data.get();
 		}
-		return null;	
+		return tr;	
 	}
 	
 	@DeleteMapping("/api/trial/{id}")
@@ -49,6 +50,7 @@ public class TrialService {
 	
 	@PutMapping("/api/trial/{id}")
 	public Trial updateTrial(@PathVariable("id") int tid, @RequestBody Trial newTrial) {
+		Trial tr = new Trial();
 		Optional<Trial> data = trialRepository.findById(tid);
 		if(data.isPresent()) {
 			Trial trial = data.get();
@@ -93,7 +95,7 @@ public class TrialService {
 			}
 			return newTrial;
 		}
-		return null;
+		return tr;
 	}
 	
 
