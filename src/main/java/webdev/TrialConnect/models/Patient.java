@@ -14,36 +14,30 @@ public class Patient {
 	private String lastName;
 	private String phone;
 	private String email;
+	private String gender;
 
-	@OneToMany(mappedBy = "patient")
-	private List<MedicalRecord> medicalRecord;
-	
+	@OneToOne(fetch = FetchType.LAZY)
+	private MedicalRecord medicalRecord;
+
 	@OneToMany(mappedBy = "patient")
 	private List<Trial> trial;
-
-	public List<MedicalRecord> getMedicalRecord() {
-		return medicalRecord;
-	}
-
-	public void setMedicalRecord(List<MedicalRecord> medicalRecord) {
-		this.medicalRecord = medicalRecord;
-	}
-
-	public List<Trial> getTrial() {
-		return trial;
-	}
-
-	public void setTrial(List<Trial> trial) {
-		this.trial = trial;
-	}
-
+	
 	@ManyToMany(mappedBy = "patients")
 	private List<Doctor> doctors;
-	private int age = 0;
+
+	private Integer age;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id")
 	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public List<Doctor> getDoctors() {
 		return doctors;
@@ -53,20 +47,12 @@ public class Patient {
 		this.doctors = doctors;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public String getPhone() {
@@ -123,6 +109,29 @@ public class Patient {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public MedicalRecord getMedicalRecord() {
+		return medicalRecord;
+	}
+
+	public void setMedicalRecord(MedicalRecord medicalRecord) {
+		this.medicalRecord = medicalRecord;
+	}
+	public List<Trial> getTrial() {
+		return trial;
+	}
+
+	public void setTrial(List<Trial> trial) {
+		this.trial = trial;
 	}
 
 }

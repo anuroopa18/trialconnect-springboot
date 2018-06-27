@@ -6,9 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Vaccine {
@@ -20,16 +17,6 @@ public class Vaccine {
 	private Date dateOfAdministration;
 	private String brand;
 	private int doses;
-	@ManyToOne
-	@JsonIgnore
-	private MedicalRecord medicalRecord;
-	
-	public MedicalRecord getMedicalRecord() {
-		return medicalRecord;
-	}
-	public void setMedicalRecord(MedicalRecord medicalRecord) {
-		this.medicalRecord = medicalRecord;
-	}
 	
 	public int getId() {
 		return id;

@@ -1,12 +1,12 @@
 package webdev.TrialConnect.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Vitals {
@@ -16,9 +16,9 @@ public class Vitals {
 	private String bodyTemperature;
 	private String bloodPressure;
 	private String pulseRate;
+	private String BMI;
 
-	@ManyToOne
-	@JsonIgnore
+	@OneToOne(mappedBy = "vitals", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private MedicalRecord medicalRecord;
 
 	public MedicalRecord getMedicalRecord() {
@@ -59,6 +59,14 @@ public class Vitals {
 
 	public void setPulseRate(String pulseRate) {
 		this.pulseRate = pulseRate;
+	}
+
+	public String getBMI() {
+		return BMI;
+	}
+
+	public void setBMI(String bMI) {
+		BMI = bMI;
 	}
 
 }

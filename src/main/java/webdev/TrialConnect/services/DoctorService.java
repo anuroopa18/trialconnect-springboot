@@ -1,6 +1,8 @@
 package webdev.TrialConnect.services;
+
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,34 +12,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import webdev.TrialConnect.models.Doctor;
 import webdev.TrialConnect.repositories.DoctorRepository;
 
 @RestController
-@CrossOrigin(origins="*",maxAge=3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class DoctorService {
 
 	@Autowired
 	DoctorRepository doctorRepository;
-	
+
 	@PostMapping("/api/doctor")
 	public Doctor createDoctor(@RequestBody Doctor doctor) {
 		return doctorRepository.save(doctor);
 	}
-	
+
 	@GetMapping("/api/doctors")
-	public List<Doctor> findAllDoctors(){
+	public List<Doctor> findAllDoctors() {
 		return (List<Doctor>) doctorRepository.findAll();
 	}
-	
+
 	@PostMapping("/api/findDoctorByCredentials/doctor")
 	public Doctor findDoctorByCredentials(@RequestBody Doctor doctor) {
 		Doctor doc = new Doctor();
-		Optional<Doctor> data = doctorRepository.findUserByCredentials(doctor.getUsername(),doctor.getPassword());
-		if(data.isPresent()) {
-			return data.get();
+		Optional<Doctor> data = doctorRepository.findUserByCredentials(doctor.getUsername(), doctor.getPassword());
+		if (data.isPresent()) {
+			doc = data.get();
 		}
-		return doc;	
+		return doc;
 	}
 	
 	@GetMapping("/api/findDoctor/{username}")
@@ -49,58 +52,57 @@ public class DoctorService {
 		}
 		return doc;
 	}
-	
+
 	@GetMapping("/api/doctor/{id}")
 	public Doctor findDoctorById(@PathVariable("id") int did) {
 		Doctor doc = new Doctor();
 		Optional<Doctor> data = doctorRepository.findById(did);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			return data.get();
 		}
-		return doc;	
+		return doc;
 	}
-	
+
 	@DeleteMapping("/api/doctor/{id}")
-	public void deleteDoctor(@PathVariable("id") int did)
-	{
+	public void deleteDoctor(@PathVariable("id") int did) {
 		doctorRepository.deleteById(did);
 	}
-	
+
 	@PutMapping("/api/doctor/{id}")
 	public Doctor updateDoctor(@PathVariable("id") int did, @RequestBody Doctor newDoctor) {
 		Doctor doc = new Doctor();
 		Optional<Doctor> data = doctorRepository.findById(did);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			Doctor doctor = data.get();
-			if(newDoctor.getAddress()!= null) {
+			if (newDoctor.getAddress() != null) {
 				doctor.setAddress(newDoctor.getAddress());
 			}
-			if(newDoctor.getEmail()!= null && !newDoctor.getEmail().equals("") ) {
+			if (newDoctor.getEmail() != null && !newDoctor.getEmail().equals("")) {
 				doctor.setEmail(newDoctor.getEmail());
 			}
-			if(newDoctor.getFirstName()!= null && !newDoctor.getFirstName().equals("") ) {
+			if (newDoctor.getFirstName() != null && !newDoctor.getFirstName().equals("")) {
 				doctor.setFirstName(newDoctor.getFirstName());
 			}
-			if(newDoctor.getLastName()!= null && !newDoctor.getLastName().equals("") ) {
+			if (newDoctor.getLastName() != null && !newDoctor.getLastName().equals("")) {
 				doctor.setLastName(newDoctor.getLastName());
 			}
-			if(newDoctor.getPassword()!= null && !newDoctor.getPassword().equals("") ) {
+			if (newDoctor.getPassword() != null && !newDoctor.getPassword().equals("")) {
 				doctor.setPassword(newDoctor.getPassword());
 			}
-			if(newDoctor.getPatients()!= null) {
+			if (newDoctor.getPatients() != null) {
 				doctor.setPatients(newDoctor.getPatients());
 			}
-			if(newDoctor.getPhone()!= null && !newDoctor.getPhone().equals("") ) {
+			if (newDoctor.getPhone() != null && !newDoctor.getPhone().equals("")) {
 				doctor.setPhone(newDoctor.getPhone());
 			}
-			if(newDoctor.getSpecialization()!= null && !newDoctor.getSpecialization().equals("") ) {
+			if (newDoctor.getSpecialization() != null && !newDoctor.getSpecialization().equals("")) {
 				doctor.setSpecialization(newDoctor.getSpecialization());
 			}
-			 
+
 			doctorRepository.save(doctor);
 			return doctor;
 		}
 		return doc;
 	}
-	
+
 }

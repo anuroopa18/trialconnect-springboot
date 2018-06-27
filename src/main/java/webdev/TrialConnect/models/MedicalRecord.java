@@ -1,114 +1,105 @@
 package webdev.TrialConnect.models;
 
-import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MedicalRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String gender;
-	private String problems;
-	private String medicine;
-	private String results;
-	
-	@JsonFormat(pattern = "MM/dd/yyyy")
-	private Date visits;
-	
 
-	@ManyToOne
-	@JsonIgnore
+	@OneToMany(mappedBy = "medicalRecord")
+	private List<MedicalConditions> medicalConditions;
+
+	@OneToMany(mappedBy = "medicalRecord")
+	private List<Allergy> allergies;
+
+	@OneToMany(mappedBy = "medicalRecord")
+	private List<Medication> medicine;
+
+	@OneToOne(mappedBy = "medicalRecord", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private Patient patient;
-	
-	 @OneToMany(mappedBy="medicalRecord")
-	 private List<Vitals> vitals;
-	 
-	 @OneToMany(mappedBy="medicalRecord")
-	 private List<Doctor> doctor;
-	 
-	 public List<Doctor> getDoctor() {
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Vitals vitals;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Doctor doctor;
+
+	public Doctor getDoctor() {
 		return doctor;
 	}
-	public void setDoctor(List<Doctor> doctor) {
+
+	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
-	@OneToMany(mappedBy="medicalRecord")
-	 private List<Allergy> allergy;
-	 
-	 @OneToMany(mappedBy="medicalRecord")
-	 private List<Vaccine> vaccine;
-	 
-	 
+
 	public List<Allergy> getAllergy() {
-		return allergy;
+		return allergies;
 	}
+
 	public void setAllergy(List<Allergy> allergy) {
-		this.allergy = allergy;
+		this.allergies = allergy;
 	}
-	public List<Vaccine> getVaccine() {
-		return vaccine;
-	}
-	public void setVaccine(List<Vaccine> vaccine) {
-		this.vaccine = vaccine;
-	}
-	public List<Vitals> getVitals() {
-		return vitals;
-	}
-	public void setVitals(List<Vitals> vitals) {
-		this.vitals = vitals;
-	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public String getProblems() {
-		return problems;
-	}
-	public void setProblems(String problems) {
-		this.problems = problems;
-	}
-	public String getMedicine() {
+
+	public List<Medication> getMedicine() {
 		return medicine;
 	}
-	public void setMedicine(String medicine) {
+
+	public void setMedicine(List<Medication> medicine) {
 		this.medicine = medicine;
 	}
-	public String getResults() {
-		return results;
-	}
-	public void setResults(String results) {
-		this.results = results;
-	}
-	public Date getVisits() {
-		return visits;
-	}
-	public void setVisits(Date visits) {
-		this.visits = visits;
-	}
+
 	public Patient getPatient() {
 		return patient;
 	}
+
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
-	
-	
-	
-	
+
+	public Vitals getVitals() {
+		return vitals;
+	}
+
+	public void setVitals(Vitals vitals) {
+		this.vitals = vitals;
+	}
+
+	public List<Allergy> getAllergies() {
+		return allergies;
+	}
+
+	public void setAllergies(List<Allergy> allergies) {
+		this.allergies = allergies;
+	}
+
+	public List<MedicalConditions> getMedicalConditions() {
+		return medicalConditions;
+	}
+
+	public void setMedicalConditions(List<MedicalConditions> medicalConditions) {
+		this.medicalConditions = medicalConditions;
+	}
 
 }
