@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import webdev.TrialConnect.models.Doctor;
-import webdev.TrialConnect.models.MedicalRecord;
 import webdev.TrialConnect.models.Patient;
 import webdev.TrialConnect.repositories.DoctorRepository;
 import webdev.TrialConnect.repositories.MedicalRecordRepository;
+import webdev.TrialConnect.repositories.MedicationRepository;
 import webdev.TrialConnect.repositories.PatientRepository;
+import webdev.TrialConnect.repositories.VitalsRepository;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -32,6 +33,12 @@ public class PatientService {
 
 	@Autowired
 	MedicalRecordRepository medRepository;
+
+	@Autowired
+	MedicationRepository medicationRepository;
+
+	@Autowired
+	VitalsRepository vitalsRepository;
 
 	@PostMapping("/api/patient")
 	public Patient createPatient(@RequestBody Patient patient) {
@@ -150,10 +157,11 @@ public class PatientService {
 				patient.setMedicalRecord(newPatient.getMedicalRecord());
 			}
 			patient.getDoctors().add(doc);
-			patient.getMedicalRecord().setPatient(patient);
-			MedicalRecord record = patient.getMedicalRecord();
-			//Vitals vitals = record.getVitals();
-			medRepository.save(record);
+//			patient.getMedicalRecord().setPatient(patient);
+//			MedicalRecord record = patient.getMedicalRecord();
+//			Vitals vitals = record.getVitals();
+//			vitalsRepository.save(vitals);
+//			medRepository.save(record);
 			return patientRepository.save(patient);
 		}
 		return patient;

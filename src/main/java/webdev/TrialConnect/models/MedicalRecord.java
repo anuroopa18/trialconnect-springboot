@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class MedicalRecord {
@@ -24,18 +25,22 @@ public class MedicalRecord {
 	@OneToMany(mappedBy = "medicalRecord")
 	private List<Allergy> allergies;
 
-	@OneToMany(mappedBy = "medicalRecord")
+	@OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL)
 	private List<Medication> medicine;
 
-	@OneToOne(mappedBy = "medicalRecord", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@JoinColumn(name = "p_id", referencedColumnName = "pid", unique = true)
 	private Patient patient;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@JoinColumn(name = "Vital_id", referencedColumnName = "vital_id", unique = true)
 	private Vitals vitals;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@JoinColumn(name = "d_id", referencedColumnName = "doctor_id", unique = true)
 	private Doctor doctor;
 
 	public Doctor getDoctor() {
@@ -44,14 +49,6 @@ public class MedicalRecord {
 
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
-	}
-
-	public List<Allergy> getAllergy() {
-		return allergies;
-	}
-
-	public void setAllergy(List<Allergy> allergy) {
-		this.allergies = allergy;
 	}
 
 	public int getId() {

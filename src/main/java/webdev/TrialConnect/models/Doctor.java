@@ -3,6 +3,7 @@ package webdev.TrialConnect.models;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Doctor {
 	private String specialization;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="doctor_id")
 	private int id;
 	private String username;
 	private String password;
@@ -29,24 +31,12 @@ public class Doctor {
 	private String email;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "patient_doctor", joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
+	@JoinTable(name = "patient_doctor", joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id"), inverseJoinColumns = @JoinColumn(name = "pid", referencedColumnName = "pid"))
 	private List<Patient> patients;
 
-	@OneToOne(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@OneToOne
 	@JsonIgnore
 	private MedicalRecord medicalRecord;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
-	private Address address;
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 
 	public String getPhone() {
 		return phone;

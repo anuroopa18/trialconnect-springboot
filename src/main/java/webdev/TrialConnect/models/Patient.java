@@ -3,10 +3,13 @@ package webdev.TrialConnect.models;
 import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pid")
 	private int id;
 	private String username;
 	private String password;
@@ -16,28 +19,17 @@ public class Patient {
 	private String email;
 	private String gender;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private MedicalRecord medicalRecord;
 
 	@OneToMany(mappedBy = "patient")
 	private List<Trial> trial;
-	
+
 	@ManyToMany(mappedBy = "patients")
 	private List<Doctor> doctors;
 
 	private Integer age;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
-	private Address address;
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 
 	public List<Doctor> getDoctors() {
 		return doctors;
@@ -126,6 +118,7 @@ public class Patient {
 	public void setMedicalRecord(MedicalRecord medicalRecord) {
 		this.medicalRecord = medicalRecord;
 	}
+
 	public List<Trial> getTrial() {
 		return trial;
 	}

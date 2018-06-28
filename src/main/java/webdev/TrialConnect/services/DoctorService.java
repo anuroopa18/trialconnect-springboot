@@ -42,12 +42,12 @@ public class DoctorService {
 		}
 		return doc;
 	}
-	
+
 	@GetMapping("/api/findDoctor/{username}")
 	public Doctor findDoctorByUsername(@PathVariable("username") String username) {
 		Doctor doc = new Doctor();
 		Optional<Doctor> data = doctorRepository.findUserByUsername(username);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			return data.get();
 		}
 		return doc;
@@ -74,9 +74,6 @@ public class DoctorService {
 		Optional<Doctor> data = doctorRepository.findById(did);
 		if (data.isPresent()) {
 			Doctor doctor = data.get();
-			if (newDoctor.getAddress() != null) {
-				doctor.setAddress(newDoctor.getAddress());
-			}
 			if (newDoctor.getEmail() != null && !newDoctor.getEmail().equals("")) {
 				doctor.setEmail(newDoctor.getEmail());
 			}

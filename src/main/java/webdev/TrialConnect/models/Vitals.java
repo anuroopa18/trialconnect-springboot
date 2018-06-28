@@ -1,8 +1,7 @@
 package webdev.TrialConnect.models;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,13 +11,14 @@ import javax.persistence.OneToOne;
 public class Vitals {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "vital_id")
 	private int id;
 	private String bodyTemperature;
 	private String bloodPressure;
 	private String pulseRate;
 	private String BMI;
 
-	@OneToOne(mappedBy = "vitals", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@OneToOne
 	private MedicalRecord medicalRecord;
 
 	public MedicalRecord getMedicalRecord() {
